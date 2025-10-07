@@ -7,8 +7,6 @@ import model.entities.Seller;
 
 public interface SellerDao {
 
-	public interface SellerDao {
-
 		void insert(Seller obj);
 
 		void update(Seller obj);
@@ -19,4 +17,3 @@ public interface SellerDao {
 
 		List<Seller> findAll();
 	}
-}
