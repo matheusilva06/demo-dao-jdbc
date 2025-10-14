@@ -70,9 +70,9 @@ public class SellerDaoJDBC implements SellerDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"UPDATE seller"
-					+ "SET Name = ?, Email = ?, BirthDate = ?, DepartmentId = ?"
-					+ "WHERE Id = ?");
+					"UPDATE seller "
+					+ "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+					+ "WHERE Id = ? ");
 			
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getEmail());
@@ -94,8 +94,18 @@ public class SellerDaoJDBC implements SellerDao{
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("DELETE FROM seller WHERE Id = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage()); 
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -104,10 +114,10 @@ public class SellerDaoJDBC implements SellerDao{
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT seller.*,department.Name as DepName" 
+					"SELECT seller.*,department.Name as DepName " 
 					+ "FROM seller INNER JOIN department "
-					+ "ON seller.DepartmentId = department.Id"
-					+ "WHERE seller.Id = ?");
+					+ "ON seller.DepartmentId = department.Id "
+					+ "WHERE seller.Id = ? ");
 			
 			st.setInt(1, id);
 			rs = st.executeQuery();
