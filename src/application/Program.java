@@ -14,6 +14,7 @@ public class Program {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("==== TEST 1: seller findById ==== ");
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		Department department = new Department(1, "Books");
@@ -49,5 +50,7 @@ public class Program {
 		int id = sc.nextInt();
 		sellerDao.deleteById(id);
 
+		sc.close();
 	}
+	
 }
